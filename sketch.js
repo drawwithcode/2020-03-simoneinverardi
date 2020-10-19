@@ -53,7 +53,7 @@ function draw() {
       let d = dist(x, z, width / 2, height / 2);
       let offset = map(d, 0, maxD, -PI, PI);
       // let a = angle + offset;
-      let a = volume + offset;
+      let a = angle + offset;
       let h = floor(map(sin(a), -1, 1, 100, 300));
 
       noStroke();
