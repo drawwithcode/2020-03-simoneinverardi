@@ -1,11 +1,11 @@
 let angle = 0;
-let w = 25;
+let w = 20;
 let maxD;
 let song;
 let analyzer;
-
+let volume;
 function preload() {
-  song = loadSound('./assets/Water Drop Sound Effect.mp3');
+   song = loadSound('./assets/Woodkid - Goliath.mp3');
 }
 
 function setup() {
@@ -18,6 +18,13 @@ function setup() {
 
   analyzer = new p5.Amplitude();
   analyzer.setInput(song);
+  frameRate(12);
+}
+function mouseClicked() {
+  if (song.isPlaying() == false) {
+    song.loop();
+    //song.play();
+  }
 }
 
 function draw() {
@@ -32,30 +39,21 @@ function draw() {
   rotateX(-PI / 4 * 3);
   rotateY(-PI / 4 * 3);
 
-  let volume = 0;
-  if (mouseX > width/2) {
-    if (song.isPlaying() == false) {
-      song.play();
-    }
-    volume = analyzer.getLevel();
-    volume = map(volume,0,1,0,100);
-  } else {
-    song.stop();
-  }
 
 
-
+  volume = analyzer.getLevel();
+  volume = map(volume, 0, 1, 0, 20);
 
   let offset = 0;
+
   for (let z = 0; z < height; z += w) {
     for (let x = 0; x < width; x += w) {
       push();
       let d = dist(x, z, width / 2, height / 2);
       let offset = map(d, 0, maxD, -PI, PI);
       // let a = angle + offset;
-      let a = angle + offset;
+      let a = volume + offset;
       let h = floor(map(sin(a), -1, 1, 100, 300));
-
       noStroke();
       specularMaterial(255,200);
       shininess(20);
@@ -68,20 +66,11 @@ function draw() {
   // angle += 0.1;
   orbitControl(10, 10, 10);
 }
-//
-// function mouseClicked() {
-//   if (song.isPlaying()) {
-//     song.stop();
-//   } else {
-//     song.play();
-//     volume = analyzer.getLevel();
-//     volume = map(volume,0,1,0,height);
-//
-// }
-// }
 
 
-//
+
+
+
 // function addBox(){
 //   aNewBox = new Box(w - 2, h, w, 255, 200, 20);
 // }
