@@ -6,6 +6,7 @@ let maxD;
 let song;
 let analyzer;
 let volume;
+
 function preload() {
    song = loadSound('./assets/Woodkid - Goliath.mp3');
 }
