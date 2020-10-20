@@ -6,9 +6,11 @@ let maxD;
 let song;
 let analyzer;
 let volume;
+let buttonplay;
 
 function preload() {
-   song = loadSound('./assets/Woodkid - Goliath.mp3');
+  song = loadSound('./assets/Woodkid - Goliath.mp3');
+  buttonplay = loadImage("./assets/play.svg")
 }
 
 function setup() {
