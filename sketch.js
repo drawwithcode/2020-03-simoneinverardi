@@ -1,3 +1,5 @@
+// aggiungere bottoni con classe
+
 let angle = 0;
 let w = 20;
 let maxD;
