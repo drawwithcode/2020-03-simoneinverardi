@@ -52,18 +52,24 @@ function draw() {
   pointLight(0, 255, 255, -1000, 0, 0);
   pointLight(255, 0, 0, 0, 1000, 0);
   pointLight(255, 0, 0, 0, -1000, 0);
-  rotateX(-PI / 4 * 3);
-  rotateY(-PI / 4 * 3 );
 
+
+  push();
+  noStroke();
+  specularMaterial(255);
+  translate(0, 0, 500);
   texture(buttonplay);
-  plane(buttonplay.width, buttonplay.height);
-
+  plane(50, 50);
+  pop();
 
 
 
   volume = analyzer.getLevel();
   volume = map(volume, 0, 1, 0, 50);
 
+  push();
+  rotateX(-PI / 4 * 3);
+  rotateY(-PI / 4 * 3 );
   let offset = 0;
 
   for (let z = 0; z < height; z += w) {
@@ -72,6 +78,8 @@ function draw() {
       let d = dist(x, z, width / 2, height / 2);
       let offset = map(d, 0, maxD, -PI, PI);
       // let a = angle + offset;
+      // if per cambiare colore all'altezza massima!!!!!!!!!!!
+      //classe box!!!!!!!!!!!!!!!!!
       let a = volume + offset;
       let h = floor(map(sin(a), -1, 1, 100, 300));
       noStroke();
@@ -83,6 +91,7 @@ function draw() {
     }
     offset += 0.2;
   }
+  pop();
   // angle += 0.1;
   //orbitControl(10, 10, 10);
 }
