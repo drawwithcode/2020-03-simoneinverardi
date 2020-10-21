@@ -10,7 +10,7 @@ let buttonplay;
 
 function preload() {
   song = loadSound('./assets/Woodkid - Goliath.mp3');
-  buttonplay = loadImage("./assets/play.svg")
+  buttonplay = loadImage("./assets/playbutton.png")
 }
 
 function setup() {
@@ -20,6 +20,16 @@ function setup() {
   cnv.position(xCnv, yCnv);
 
   maxD = dist(0, 0, 300, 300);
+
+  push();
+
+  translate(-width / 2 + buttonplay.width, -height / 2 + buttonplay.height, 0);
+  texture(buttonplay);
+  plane(buttonplay.width, buttonplay.height);
+  pop();
+
+
+  console.log(buttonplay);
 
   analyzer = new p5.Amplitude();
   analyzer.setInput(song);
