@@ -40,6 +40,7 @@ function mouseClicked() {
     song.loop();
     //song.play();
   }
+
 }
 
 function draw() {
@@ -47,17 +48,21 @@ function draw() {
   background(255);
   ortho(-500, 500, 500, -500, 0, 10000);
   ambientLight(30, 30, 30);
-  pointLight(0, 255, 255, 10000, 0, 0);
-  pointLight(0, 255, 255, -10000, 0, 0);
-  pointLight(255, 0, 0, 0, 10000, 0);
-  pointLight(255, 0, 0, 0, -10000, 0);
+  pointLight(0, 255, 255, 1000, 0, 0);
+  pointLight(0, 255, 255, -1000, 0, 0);
+  pointLight(255, 0, 0, 0, 1000, 0);
+  pointLight(255, 0, 0, 0, -1000, 0);
   rotateX(-PI / 4 * 3);
-  rotateY(-PI / 4 * 3);
+  rotateY(-PI / 4 * 3 );
+
+  texture(buttonplay);
+  plane(buttonplay.width, buttonplay.height);
+
 
 
 
   volume = analyzer.getLevel();
-  volume = map(volume, 0, 1, 0, 20);
+  volume = map(volume, 0, 1, 0, 50);
 
   let offset = 0;
 
@@ -70,8 +75,8 @@ function draw() {
       let a = volume + offset;
       let h = floor(map(sin(a), -1, 1, 100, 300));
       noStroke();
-      specularMaterial(255,200);
-      shininess(20);
+      specularMaterial(255,170);
+      shininess(2);
       translate(x - width / 2, 0, z - height / 2);
       box(w - 5, h, w);
       pop();
@@ -79,7 +84,7 @@ function draw() {
     offset += 0.2;
   }
   // angle += 0.1;
-  orbitControl(10, 10, 10);
+  //orbitControl(10, 10, 10);
 }
 
 
