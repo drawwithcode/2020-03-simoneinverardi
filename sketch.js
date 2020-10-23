@@ -1,6 +1,3 @@
-
-//let angle = 0;
-
 let w = 15;
 let maxD;
 
@@ -10,17 +7,16 @@ let volume;
 
 let buttonPlay;
 let buttonPlayTexture;
-let buttonPause;
-let buttonPauseTexture;
 
 let boxStandard;
 let boxColored;
 
+let isTheMouseClicked = false;
+
 
 function preload() {
   song = loadSound('./assets/Woodkid - Goliath.mp3');
-  buttonPlayTexture = loadImage("./assets/playbutton.png");
-  buttonPauseTexture = loadImage("./assets/playbutton.png");
+  buttonPlayTexture = loadImage("./assets/playbutton.svg");
 }
 
 function setup() {
@@ -31,24 +27,9 @@ function setup() {
 
   maxD = dist(0, 0, 300, 300);
 
-  buttonPlay = new Button(0 , 450 , 500, 50, 50, buttonPlayTexture);
-  buttonPlay.mousePressed(buttonPlay);
-
-  // buttonPause.mousePressed(buttonPause);
-  //
-  // buttonPause.style("visibility", "hidden"); // Button Pause Hidden
-
   analyzer = new p5.Amplitude();
   analyzer.setInput(song);
   frameRate(12);
-}
-function mouseClicked() {
-  if (song.isPlaying() == false) {
-    // song.loop();
-    song.play();
-  } else {
-    song.pause();
-  }
 }
 
 function draw() {
@@ -61,23 +42,21 @@ function draw() {
   pointLight(255, 0, 0, 0, 1000, 0);
   pointLight(255, 0, 0, 0, -1000, 0);
 
-
-  buttonPlay.display();
-
-  // push();
-  // noStroke();
-  // specularMaterial(255);
-  // translate(0, 0, 500);
-  // texture(buttonplayTexture);
-  // plane(50, 50);
-  // pop();
+  if (isTheMouseClicked == false) {
+    buttonPlay = new Button(0 , 450 , 500, 100, 100, buttonPlayTexture);
+    buttonPlay.display();
+  } else {
+    if (song.isPlaying() == false) {
+      song.loop();
+    }
+  }
 
   volume = analyzer.getLevel();
   volume = map(volume, 0, 1, 0, 20);
 
   push();
   rotateX(-PI / 4 * 3);
-  rotateY(-PI / 4 * 3 );
+  rotateY(PI / 4 * 3);
   let offset = 0;
 
   for (let z = 0; z < height; z += w) {
@@ -85,8 +64,6 @@ function draw() {
       push();
       let d = dist(x, z, width / 2, height / 2);
       let offset = map(d, 0, maxD, -PI, PI);
-
-      // let a = angle + offset;
 
       let a = volume + offset;
       let h = floor(map(sin(a), -1, 1, 100, 300));
@@ -103,8 +80,9 @@ function draw() {
     offset += 0.2;
   }
   pop();
-  // angle += 0.1;
-  //orbitControl(10, 10, 10);
+  if (isTheMouseClicked == true) {
+  orbitControl(10, 10, 10);
+}
 }
 class Button{
   constructor (temp_x, temp_y, temp_z, temp_width, temp_height, temp_texture) {
@@ -123,9 +101,6 @@ class Button{
     texture(this.texture);
     plane(this.width, this.height);
     pop();
-  }
-  mousePressed() {
-
   }
 }
 
@@ -155,14 +130,6 @@ class Box{
   }
 }
 
-function playPause() {
-  if (song.isPlaying() == true) {
-    song.pause();
-    buttonPause.style("visibility", "hidden");
-    buttonPlay.style("visibility", "visible");
-  } else {
-    audio.loop();
-    buttonPlay.style("visibility", "hidden")
-    buttonPause.style("visibility", "visible");
-  }
+function mouseClicked() {
+  isTheMouseClicked = true;
 }
